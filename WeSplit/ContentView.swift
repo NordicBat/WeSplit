@@ -27,10 +27,16 @@ struct ContentView: View {
 
     var totalCheck: String {
         let total = Double(checkAmount) ?? 0
-         let tip = Double(tipPercentage) ?? 0
+        let tip = Double(tipPercentage) ?? 0
         let totalTip = total / 100 * tip
 
         return String(format: "Total: $%.2f Tips: $%.2f", total, totalTip)
+    }
+
+    var hasTip: Bool {
+        let tip = Double(tipPercentage) ?? 0
+
+        return tip > 0 ? true : false
     }
 
     var body: some View {
@@ -58,6 +64,7 @@ struct ContentView: View {
 
                 Section(header: Text("Check Total:")) {
                     Text(totalCheck)
+                        .foregroundColor(hasTip ? .black : .red)
                 }
             }
         .navigationBarTitle("WeSplit")
